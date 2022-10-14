@@ -29,20 +29,24 @@ function App() {
  
         var nSum = 0;
         var isSecond = false;
-        for (var i = nDigits - 1; i >= 0; i--)
+        for (var i = nDigits-1; i >= 0; i--)
         {
             var d = value[i];
+            console.log('==Digit Before==',d)
       
             if (isSecond)
                 d = d * 2;
- 
+            console.log('==Digit ifDouble==',d)
             //Adds the first digit to sum by dividing by 10 and getting the floor. Numbers 10 or greater return a 1 and numbers 9 or lower return a 0 
             nSum += Math.floor(d / 10);
+            console.log('==Digit one==',Math.floor(d / 10))
             //Adds the second digit to sum by getting mod 10. Numbers 10 or greater return the remainder (second digit) and numbers 9 or lower return with no change
             nSum += d % 10;
+            console.log('==Digit two==',Math.floor(d % 10))
             //Sets the isSecond flag to its inverse, this should make sure every second number has isSecond = True
             isSecond = !isSecond;
         }
+        console.log('==Digit Sum Final Result==', nSum%10)
         return (nSum % 10 === 0);
     }
   
@@ -59,7 +63,7 @@ function App() {
     //Checks if the feild is first_name and the value matches the regex validName, and sets a new error in the error State 
     if(field === 'first_name' && !value.match(validName)){
       setErrors(prevErrors => {
-        return {...prevErrors, 'first_name': 'Error: Invalid characters detected, names must contain only letters'}
+        return {...prevErrors, 'first_name': 'Error: Invalid characters detected in First Name, names must contain only letters'}
       })
     }
     else if (field === 'first_name' && value.match(validName))
@@ -75,7 +79,7 @@ function App() {
     //Checks if the field is last_name and the value matches the regex validName, and sets a new error in the error State 
     if(field === 'last_name' && !value.match(validName)){
       setErrors(prevErrors => {
-        return {...prevErrors, 'last_name': 'Error: Invalid characters detected, names must contain only letters'}
+        return {...prevErrors, 'last_name': 'Error: Invalid characters detected in Last Name, names must contain only letters'}
       })
     }
     else if (field === 'last_name' && value.match(validName))
@@ -95,7 +99,7 @@ function App() {
       //Compares the currentDate and selectedDate, sets a new error in the error State if currentDate is less than selectedDate
       if(currentDate < selectedDate){
         setErrors(prevErrors => {
-          return {...prevErrors, 'date_of_birth': 'Error: Invalid date detected, date of birth can not be greater than current date'}
+          return {...prevErrors, 'date_of_birth': 'Error: Invalid date detected in Date of Birth, date of birth can not be greater than current date'}
         })
       }
       else{
@@ -111,12 +115,12 @@ function App() {
     if(field === 'health_card_number'){
       if(value.length === 10 && !checkCard(value)){
         setErrors(prevErrors => {
-          return {...prevErrors, 'health_card_number': 'Error: Invalid health card number detected'}
+          return {...prevErrors, 'health_card_number': 'Error: Invalid Health Card Number detected'}
         })
       }
-      else if(value.length < 10){
+      else if(value.length < 10 || value.length > 10){
         setErrors(prevErrors => {
-          return {...prevErrors, 'health_card_number': 'Error: Invalid health card number detected'}
+          return {...prevErrors, 'health_card_number': 'Error: Invalid health card number detected, Health card number must be exactly 10 digits'}
         })
       }
       else{
